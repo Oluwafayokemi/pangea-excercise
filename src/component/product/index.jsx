@@ -11,7 +11,6 @@ export const Product = () => {
   const [selectedProduct, setSelectedProduct] = useState([])
   const [selectedCurrency, setSelectedCurrency] = useState('USD')
   const [openCart, setCartOpen] = useState(false)
-  const [qty, setQty] = useState(1)
   const { loading, error, data } = useQuery(GET_PRODUCTS, {
     variables: { currency: selectedCurrency }
   })
@@ -46,6 +45,9 @@ export const Product = () => {
   }, [data])
 
   const selectedCalculator = (type, id) => {
+    const getpreviousProduct = products.filter(
+      previousProduct => previousProduct?.id === id
+    )
     const product = selectedProduct.map(uniqueProduct => {
       if (uniqueProduct?.id === id) {
         const qty =
@@ -53,15 +55,14 @@ export const Product = () => {
             ? uniqueProduct?.quantity + 1
             : uniqueProduct?.quantity - 1
         const qtyCount = qty > 1 ? qty : 1
-        console.log({ qty }, '$$$$$$$$$$$', { qtyCount }, '&&&&&&&&&&&', uniqueProduct?.price)
         return {
           ...uniqueProduct,
-          price: uniqueProduct?.price * qtyCount,
+          price: getpreviousProduct[0]?.price * qtyCount,
           quantity: qtyCount
         }
       }
       return uniqueProduct
-    }) 
+    })
     setSelectedProduct(product)
   }
 
