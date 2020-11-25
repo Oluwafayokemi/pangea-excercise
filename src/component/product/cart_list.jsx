@@ -1,23 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { useQuery } from '@apollo/client'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { GET_CURRENCY } from './query'
 
-export const CartList = ({ products, setCartOpen }) => {
-  console.log(products, '$$$$$$$$$$$$$$$$$')
+export const CartList = ({ products, setCartOpen, selectedCalculator, setSelectedCurrency }) => {
   const { loading, error, data } = useQuery(GET_CURRENCY)
 
-  const [count, setCount] = useState(1)
   const handleSelect = event => {
-    console.log(event.target.value, '@@@@@@@@@@@@@@@@@@@@@')
-  }
-
-  const selectedCalculator = type => {
-    if (type === 'add') {
-      return setCount(count + 1)
-    }
-    return setCount(count > 1 ? count - 1 : 1)
+    setSelectedCurrency(event.target.value)
   }
 
   if (loading) return 'Loading...'
@@ -56,14 +47,14 @@ export const CartList = ({ products, setCartOpen }) => {
             <div className='base'>
               <div className='qty-selector'>
                 <span
-                  onClick={event => selectedCalculator('remove')}
+                  onClick={event => selectedCalculator('remove', product?.id)}
                   className='remove-item'
                 >
                   -
                 </span>
-                <span>{count}</span>
+                <span>{product?.quantity}</span>
                 <span
-                  onClick={event => selectedCalculator('add')}
+                  onClick={event => selectedCalculator('add', product?.id)}
                   className='add-item'
                 >
                   +
