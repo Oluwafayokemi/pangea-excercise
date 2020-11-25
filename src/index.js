@@ -4,6 +4,11 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { faChevronCircleRight, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+
+library.add(fab, faChevronCircleRight, faShoppingCart)
 // const client = ...
 const client = new ApolloClient({
   uri: 'https://pangaea-interviews.now.sh/api/graphql',

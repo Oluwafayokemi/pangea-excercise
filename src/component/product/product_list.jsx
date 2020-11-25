@@ -1,29 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import { gql, useQuery } from '@apollo/client'
 
-const GET_PRODUCTS = gql`
-  query {
-    products {
-      id
-      title
-      image_url
-      price(currency: USD)
-    }
-  }
-`
-
-const handleClick = product => {
-  console.log(product, '@@@@@@@@@@@@@@@@@@@@@@@@@@')
-}
-export const ProductList = () => {
-  const { loading, error, data } = useQuery(GET_PRODUCTS)
-
-  if (loading) return 'Loading...'
-  if (error) return `Error! ${error.message}`
+export const ProductList = ({ products, handleClick }) => {
+ 
   return (
     <Wrapper>
-      {data?.products.map(product => {
+      {products?.map(product => {
         return (
           <div className='product' key={product?.id}>
             <div className='row'>
@@ -31,7 +13,7 @@ export const ProductList = () => {
               <div className='title'>{product?.title}</div>
             </div>
             <div className='price'>From: ${product?.price.toFixed(2)}</div>
-            <button onClick={event => handleClick(product)}>Add to Cart</button>
+            <button onClick={() => handleClick(product)}>Add to Cart</button>
           </div>
         )
       })}
@@ -78,7 +60,6 @@ const Wrapper = styled.div`
   button {
     padding: 1em;
     display: flex;
-    appearance: none;
     align-items: center;
     justify-content: center;
     transition: all 250ms ease 0s;

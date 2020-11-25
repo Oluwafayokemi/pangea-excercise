@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const Header = () => {
   return (
@@ -12,7 +13,7 @@ export const Header = () => {
       </span>
       <span className='right'>
         <span>Account</span>
-        <span>CartImg</span>
+        <FontAwesomeIcon icon='shopping-cart'/>
       </span>
     </Wrapper>
   )
