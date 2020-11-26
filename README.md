@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# Pangea Coding Challenge
+For this challenge we'll be recreating the luminskin.com product page and cart using a GraphQL API. You can use any framework you feel comfortable with, we recommend ReactJS or Vue.js. You dont need to worry about a pixel-perfect recreation, the main thing we care about is functionality (but if it looks nice we won't hold that against your).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Product Page Reqiurements
+- Should query from https://pangaea-interviews.now.sh/api/graphql, retrieve the products and display them in a grid. Feel free to use graphql client libraries such as Apollo Client
+- Each item should display the image, title, price and a "Add to Cart" button.
+- For screens wider than 768px, it should show grid of 3 items, for less than 768px wide it should show a grid of two wide.
+- There is no need to implement the page navbar, or filter dropdown as shown in the screenshot .
 
-## Available Scripts
+## Cart Reqiurements
+- When a user clicks "Add to Cart" on an item it should open the cart sidebar and add the item in.
+- If the item already exists it should increment the quantity.
+- Clicking the + or - buttons will increase or descrease the quantity, if the quantity is 1 and the "-" button is pressed it should remove the item.
+- In the top left there is a currency select, doing so should requery the GraphQL api with a new currency and update the prices.
+- It should sum the items in the cart and display them in the correct selected currency.
+- Ignore anything related to subscriptions
 
-In the project directory, you can run:
+### Why this App is useful?
+Enables customers to see list of items to purchase, add items to cart and see different prices in different currencies
 
-### `yarn start`
+### Tools and Technologies used
+- graphql
+- Apollo Client
+- React.js
+- styled-component
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Get Started
+- $ git clone https://github.com/Oluwafayokemi/pangea-excercise.git
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Set up Guide
+- cd into the newly cloned folder
+- Go into the project directory:
+- on your terminal run
 
-### `yarn test`
+```
+npm install 
+```
+To install all packages
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+npm run start 
+```
+On your browser navigate to localhost:3000 if not already routed by the server.
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
