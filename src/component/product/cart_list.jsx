@@ -47,7 +47,7 @@ export const CartList = ({
           <Detail key={product?.id}>
             <div className='header'>
               <h6 className='title'>{product?.title}</h6>
-              <span class='close'>&times;</span>
+              <span className='close'>&times;</span>
             </div>
             <div>
               <img src={product?.image_url} alt='productImg' />
@@ -55,14 +55,14 @@ export const CartList = ({
             <div className='base'>
               <div className='qty-selector'>
                 <span
-                  onClick={event => selectedCalculator('remove', product?.id)}
+                  onClick={event => selectedCalculator('remove', product)}
                   className='remove-item'
                 >
                   {minus}
                 </span>
                 <span>{product?.quantity}</span>
                 <span
-                  onClick={event => selectedCalculator('add', product?.id)}
+                  onClick={event => selectedCalculator('add', product)}
                   className='add-item'
                 >
                   {addition}

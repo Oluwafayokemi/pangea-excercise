@@ -67,12 +67,15 @@ export const Product = () => {
     }
   }, [products])
 
-  const selectedCalculator = (type, id) => {
+  const selectedCalculator = (type, selectedItem) => {
+    if (type === 'remove' && selectedItem?.quantity === 1) {
+      return deSelectProduct(type, selectedItem)
+    }
     const perQuantityProduct = products.filter(
-      perQuantityProduct => perQuantityProduct?.id === id
+      perQuantityProduct => perQuantityProduct?.id === selectedItem?.id
     )
     const product = selectedProduct.map(uniqueProduct => {
-      if (uniqueProduct?.id === id) {
+      if (uniqueProduct?.id === selectedItem?.id) {
         const qty =
           type === 'add'
             ? uniqueProduct?.quantity + 1
@@ -87,6 +90,13 @@ export const Product = () => {
       return uniqueProduct
     })
     setSelectedProduct(product)
+  }
+
+  const deSelectProduct = (type, selectedItem) => {
+    const updatedProduct = selectedProduct.filter(
+      product => product?.id !== selectedItem?.id
+    )
+    return setSelectedProduct(updatedProduct)
   }
 
   return (
