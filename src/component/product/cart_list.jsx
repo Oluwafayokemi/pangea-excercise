@@ -19,7 +19,9 @@ export const CartList = ({
 
   if (loading) return 'Loading...'
   if (error) return `Error! ${error.message}`
-
+  const productSubTotal = products?.reduce((total, amount) => {
+    return total + amount?.price
+  }, 0)
   return (
     <Wrapper>
       <Header>
@@ -67,13 +69,20 @@ export const CartList = ({
                 </span>
               </div>
               <span className='price'>
-                {`${currencyFormatter(product?.price, selectedCurrency)}`}
+                {currencyFormatter(product?.price, selectedCurrency)}
               </span>
               <div />
             </div>
           </Detail>
         )
       })}
+      <div className='footer'>
+        <hr />
+        <div className='total'>
+          <span>SubTotal</span>
+          <span>{currencyFormatter(productSubTotal, selectedCurrency)}</span>
+        </div>
+      </div>
     </Wrapper>
   )
 }
@@ -98,6 +107,19 @@ const Wrapper = styled.div`
     background-position: 100% 60%;
     border: none;
     margin-bottom: 1em;
+    cursor: pointer;
+  }
+  hr {
+    color: gray;
+  }
+  .total {
+    display: flex;
+    font-size: 13px;
+    justify-content: space-between;
+  }
+  .footer {
+    padding: 5px;
+    margin-top: 10em;
   }
 `
 const Detail = styled.div`

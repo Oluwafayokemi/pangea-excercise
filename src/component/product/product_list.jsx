@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { currencyFormatter } from '../../utils/currencyHelper'
 
 export const ProductList = ({ products, handleClick, selectedCurrency }) => {
- 
   return (
     <Wrapper>
       {products?.map(product => {
@@ -13,7 +12,9 @@ export const ProductList = ({ products, handleClick, selectedCurrency }) => {
               <img className='img' src={product?.image_url} alt='product' />
               <div className='title'>{product?.title}</div>
             </div>
-            <div className='price'>From: {`${currencyFormatter(product?.price, selectedCurrency)}`}</div>
+            <div className='price'>
+              From: {currencyFormatter(product?.price, selectedCurrency)}
+            </div>
             <button onClick={() => handleClick(product)}>Add to Cart</button>
           </div>
         )
