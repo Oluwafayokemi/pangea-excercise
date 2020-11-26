@@ -11,7 +11,7 @@ import { faChevronCircleRight, faShoppingCart } from '@fortawesome/free-solid-sv
 library.add(fab, faChevronCircleRight, faShoppingCart)
 // const client = ...
 const client = new ApolloClient({
-  uri: 'https://pangaea-interviews.now.sh/api/graphql',
+  uri: process.env.REACT_APP_URL,
   cache: new InMemoryCache()
 })
 

@@ -1,11 +1,10 @@
 # Pangea Coding Challenge
-For this challenge we'll be recreating the luminskin.com product page and cart using a GraphQL API. You can use any framework you feel comfortable with, we recommend ReactJS or Vue.js. You dont need to worry about a pixel-perfect recreation, the main thing we care about is functionality (but if it looks nice we won't hold that against your).
+Recreating luminskin.com product page and cart using a GraphQL API.
 
 ## Product Page Reqiurements
-- Should query from https://pangaea-interviews.now.sh/api/graphql, retrieve the products and display them in a grid. Feel free to use graphql client libraries such as Apollo Client
+- Should query endpoint, retrieve the products and display them in a grid.
 - Each item should display the image, title, price and a "Add to Cart" button.
 - For screens wider than 768px, it should show grid of 3 items, for less than 768px wide it should show a grid of two wide.
-- There is no need to implement the page navbar, or filter dropdown as shown in the screenshot .
 
 ## Cart Reqiurements
 - When a user clicks "Add to Cart" on an item it should open the cart sidebar and add the item in.
@@ -30,6 +29,8 @@ Enables customers to see list of items to purchase, add items to cart and see di
 ### Set up Guide
 - cd into the newly cloned folder
 - Go into the project directory:
+- create a .env file by running `touch .env` in the project directory
+- copy the details in .env.example to the .env file
 - on your terminal run
 
 ```
@@ -41,4 +42,98 @@ npm run start
 ```
 On your browser navigate to localhost:3000 if not already routed by the server.
 
+```
+
+
+### Set up Guide
+- cd into the newly cloned folder
+- Go into the project directory:
+- create a .env file by running `touch .env` in the project directory
+- copy the details in .env.example to the .env file
+- paste the database url to the .env file and replace with the username and password you added as user
+- Do the same for the test db - create another database and paste the url in the DB_TEST_URL
+
+- on your terminal run
+
+```
+npm install 
+```
+To install all packages
+
+```
+npm test
+```
+To run test
+```
+npm run dev 
+```
+On your browser navigate to localhost:4000
+* You should see this *
+`🚀 Server ready at http://localhost:4000/`
+
+- Open postman and test out the endpoints;
+
+### For Api Documentation
+API Endpoints
+To create a location:
+- on the graphql play ground running on http://localhost:4000/
+- create location
+```
+mutation {
+  createLocation(location: String, male_population: Integer, female_population: Integer){
+      id
+      location
+      male_population
+      female_population
+      total_population
+      parent_location
+    }
+  
+```
+- get list of locations :
+```
+query {
+  getAllLocations{
+  id
+  female_population
+  male_population
+  total_population
+  parent_location
+}
+```
+- get one location:
+```
+query {
+  getOneLocation(id: ID!){
+  id
+  male_population
+  female_population
+  total_population
+  parent_location
+}
+```
+- update location:
+```
+mutation {
+  updateLocation(id: ID!, location: String!){
+  id
+  location
+  male_population
+  female_population
+  total_population
+  parent_location
+}
+```
+- Delete location:
+```
+mutation {
+  deleteLocation(id: ID!){
+  id
+  location
+  male_population
+  female_population
+  total_population
+  parent_location
+  }
+}
 ```
