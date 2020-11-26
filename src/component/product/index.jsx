@@ -10,29 +10,37 @@ export const Product = () => {
   const [products, setProducts] = useState([])
   const [selectedProduct, setSelectedProduct] = useState([])
   const [selectedCurrency, setSelectedCurrency] = useState('USD')
+  const [previousCurrency, setPreviousCurrency] = useState('USD')
   const [openCart, setCartOpen] = useState(false)
   const { loading, error, data } = useQuery(GET_PRODUCTS, {
     variables: { currency: selectedCurrency }
   })
 
-  const handleClick = previousProduct => {
-    if (selectedProduct.some(product => product?.id === previousProduct?.id)) {
+  const handleClick = perQuantityProduct => {
+    if (
+      selectedProduct.some(product => product?.id === perQuantityProduct?.id)
+    ) {
       const product = selectedProduct.map(uniqueProduct => {
-        if (uniqueProduct?.id === previousProduct?.id) {
+        if (uniqueProduct?.id === perQuantityProduct?.id) {
           return {
             ...uniqueProduct,
             quantity: uniqueProduct?.quantity + 1,
-            price: previousProduct?.price * (uniqueProduct?.quantity + 1)
+            price: perQuantityProduct?.price * (uniqueProduct?.quantity + 1)
           }
         }
         return uniqueProduct
       })
       setSelectedProduct(product)
     } else {
-      setSelectedProduct([...selectedProduct, previousProduct])
+      setSelectedProduct([...selectedProduct, perQuantityProduct])
     }
 
     setCartOpen(!openCart)
+  }
+
+  const handleSelectCurrency = event => {
+    setPreviousCurrency(selectedCurrency)
+    setSelectedCurrency(event.target.value)
   }
 
   useEffect(() => {
@@ -44,9 +52,24 @@ export const Product = () => {
     }
   }, [data])
 
+  useEffect(() => {
+    if (
+      products.length &&
+      selectedProduct.length &&
+      previousCurrency !== selectedCurrency
+    ) {
+      const updatedSelectedProduct = products?.filter(product => {
+        return selectedProduct.some(productSelected => {
+          return productSelected?.id === product?.id
+        })
+      })
+      setSelectedProduct(updatedSelectedProduct)
+    }
+  }, [products])
+
   const selectedCalculator = (type, id) => {
-    const getpreviousProduct = products.filter(
-      previousProduct => previousProduct?.id === id
+    const perQuantityProduct = products.filter(
+      perQuantityProduct => perQuantityProduct?.id === id
     )
     const product = selectedProduct.map(uniqueProduct => {
       if (uniqueProduct?.id === id) {
@@ -57,7 +80,7 @@ export const Product = () => {
         const qtyCount = qty > 1 ? qty : 1
         return {
           ...uniqueProduct,
-          price: getpreviousProduct[0]?.price * qtyCount,
+          price: perQuantityProduct[0]?.price * qtyCount,
           quantity: qtyCount
         }
       }
@@ -71,14 +94,19 @@ export const Product = () => {
       <ProductHeader />
       <div className='container'>
         <div className={openCart ? 'not-active' : ''}>
-          <ProductList products={products} handleClick={handleClick} />
+          <ProductList
+            products={products}
+            handleClick={handleClick}
+            selectedCurrency={selectedCurrency}
+          />
         </div>
         <div className={`cart ${openCart ? 'active' : 'none'}`}>
           <CartList
             products={selectedProduct}
-            setSelectedCurrency={setSelectedCurrency}
+            handleSelect={handleSelectCurrency}
             setCartOpen={setCartOpen}
             selectedCalculator={selectedCalculator}
+            selectedCurrency={selectedCurrency}
           />
         </div>
       </div>

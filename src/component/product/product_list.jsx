@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import { currencyFormatter } from '../../utils/currencyHelper'
 
-export const ProductList = ({ products, handleClick }) => {
+export const ProductList = ({ products, handleClick, selectedCurrency }) => {
  
   return (
     <Wrapper>
@@ -12,7 +13,7 @@ export const ProductList = ({ products, handleClick }) => {
               <img className='img' src={product?.image_url} alt='product' />
               <div className='title'>{product?.title}</div>
             </div>
-            <div className='price'>From: ${product?.price.toFixed(2)}</div>
+            <div className='price'>From: {`${currencyFormatter(product?.price, selectedCurrency)}`}</div>
             <button onClick={() => handleClick(product)}>Add to Cart</button>
           </div>
         )

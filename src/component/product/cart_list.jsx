@@ -3,13 +3,19 @@ import styled from 'styled-components'
 import { useQuery } from '@apollo/client'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { GET_CURRENCY } from './query'
+import { currencyFormatter } from '../../utils/currencyHelper'
 
-export const CartList = ({ products, setCartOpen, selectedCalculator, setSelectedCurrency }) => {
+const minus = '-'
+const addition = '+'
+
+export const CartList = ({
+  products,
+  setCartOpen,
+  selectedCalculator,
+  handleSelect,
+  selectedCurrency
+}) => {
   const { loading, error, data } = useQuery(GET_CURRENCY)
-
-  const handleSelect = event => {
-    setSelectedCurrency(event.target.value)
-  }
 
   if (loading) return 'Loading...'
   if (error) return `Error! ${error.message}`
@@ -50,17 +56,19 @@ export const CartList = ({ products, setCartOpen, selectedCalculator, setSelecte
                   onClick={event => selectedCalculator('remove', product?.id)}
                   className='remove-item'
                 >
-                  -
+                  {minus}
                 </span>
                 <span>{product?.quantity}</span>
                 <span
                   onClick={event => selectedCalculator('add', product?.id)}
                   className='add-item'
                 >
-                  +
+                  {addition}
                 </span>
               </div>
-              <span className='price'>${product?.price.toFixed(2)}</span>
+              <span className='price'>
+                {`${currencyFormatter(product?.price, selectedCurrency)}`}
+              </span>
               <div />
             </div>
           </Detail>
